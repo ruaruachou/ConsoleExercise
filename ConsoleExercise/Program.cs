@@ -13,7 +13,8 @@ namespace ConsoleExercise
         /// <returns>星期数</returns>
         private static int GetWeekByDay(int year, int month, int day)
         {
-          
+            DateTime dt = new DateTime(year, month, day);
+            return (int)dt.DayOfWeek;
            
         }
         private static bool IsLeapYear(int year)
@@ -44,8 +45,21 @@ namespace ConsoleExercise
                 }
             }
             else return 0;
-        //这是第三次提交的改动（在家）
+        
         
         }
+    private static void PrintMonthCalender(int year,int month)
+    {
+        //显示表头
+        Console.WriteLine("{0}年{1}月", year, month);
+        Console.WriteLine(日/t一/t二/t三/t四/t五/t六)；
+            //根据星期数打印空格
+            int week=GetWeekByDay(year,month,1)
+            for (int i = 0, i<= week, i++)
+            Console.Write("/t");
+            
+            //根据当月总天数显示日
+           int days=GetDaysByMonth(year,month)
+    }
     }
 }
