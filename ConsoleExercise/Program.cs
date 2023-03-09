@@ -52,10 +52,10 @@ namespace ConsoleExercise
     {
         //显示表头
         Console.WriteLine("{0}年{1}月", year, month);
-        Console.WriteLine(日/t一/t二/t三/t四/t五/t六)；
-            //根据星期数打印空格
-            int week=GetWeekByDay(year,month,1)
-            for (int i = 0, i<= week, i++)
+        Console.WriteLine("日/t一/t二/t三/t四/t五/t六");
+        //根据星期数打印空格
+        int week = GetWeekByDay(year, month, 1);
+            for (int i = 0;i<= week; i++)
             Console.Write("/t");
             
             //根据当月总天数显示日
