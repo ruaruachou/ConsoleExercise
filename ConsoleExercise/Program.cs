@@ -1,65 +1,77 @@
 ﻿using System;
-
-namespace ConsoleExercise
+namespace CalendarApplication
 {
-    class Program
+    class CalendarApp
     {
-        /// <summary>
-        /// 根据年月日，获取星期数的方法
-        /// </summary>
-        /// <param name="year">年</param>
-        /// <param name="month">月</param>
-        /// <param name="day">日</param>
-        /// <returns>星期数</returns>
         private static int GetWeekByDay(int year, int month, int day)
         {
             DateTime dt = new DateTime(year, month, day);
             return (int)dt.DayOfWeek;
-           
         }
-        private static bool IsLeapYear(int year)
-        {
-            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
-                return true;
-            else
-                return false;
-        }
-        private static int GetDaysByMonth(int year,int month)
+        //根据月份计算当月天数
+        private static int GetDaysByMonth(int year, int month)
         {
             if (month >= 1 && month <= 12)
             {
-                switch(month)
+                switch (month)
                 {
-                    case2:
-                    return IsLeapYear(year) ? 29 : 28;
-                    case 1:
-                    case 3:
-                    case 5:
-                    case 7:
-                    case 8:
-                    case 10:
+                    case 2:
+                        if (IsLeapYear(year) == true) //此处可用三元表达式 if IsLeapYear(year)?29:28;
+                            return 29;
+                        else return 28;
+                    case 4:
+                    case 6:
+                    case 9:
                     case 11:
-                    return 31;
-                default:
-                    return 30;
+                        return 30;
+                    default:
+                        return 31;
                 }
             }
-            else return 0;
-        
-        
+            else return 0; //此处可用短路语句放上去，减少一个else
         }
-    private static void PrintMonthCalender(int year,int month)
-    {
-        //显示表头
-        Console.WriteLine("{0}年{1}月", year, month);
-        Console.WriteLine("日/t一/t二/t三/t四/t五/t六");
-        //根据星期数打印空格
-        int week = GetWeekByDay(year, month, 1);
-            for (int i = 0;i<= week; i++)
-            Console.Write("/t");
-            
-            //根据当月总天数显示日
-           int days=GetDaysByMonth(year,month)
-    }
+        private static bool IsLeapYear(int year)
+        {
+            if (year % 4 == 0 && year % 400 == 0 || year % 400 == 0)
+                return true;
+            else return false;
+        }
+        //打印日历
+        private static void PrintMonthCalendar(int year, int month)
+        {
+            //显示表头
+            Console.WriteLine("{0}年{1}月", year, month);
+            Console.WriteLine("Su\tMo\tTu\tWd\tTh\tFr\tSa");
+            int WeekDay = GetWeekByDay(year, month, 1);
+            int SpaceNum = 0;
+            while (SpaceNum < WeekDay)
+            {
+                Console.Write("\t");
+                SpaceNum++;
+            }
+            int day = GetDaysByMonth(year, month);
+            int DayNum = 0;
+            while (DayNum < day)
+            {
+                Console.Write(DayNum + "\t");
+                DayNum++;
+                if (GetWeekByDay(year, month, day) == 6)
+                {
+                    Console.WriteLine();
+                }
+            }
+        }
+        private static void PrintYearCalendar(int year)
+        {
+            for (int month = 1; month <= 12; month++)
+            {
+                PrintMonthCalendar(year, month);
+            }
+        }
+        private static void Main()
+        {
+            int year = int.Parse(Console.ReadLine());
+            PrintYearCalendar(year);
+        }
     }
 }
